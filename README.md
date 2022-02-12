@@ -16,27 +16,28 @@ This service belongs to client service (application) that has a purposes as waqf
    git clone git@github.com:zainafifaldi/wakaf-api.git
    ```
 
-Copy environment file, and edit based on your configuration
+2. Copy environment file, and edit based on your configuration
    ```bash
    cp .env.example .env
    ```
 
-Install dependencies
+3. Install dependencies
    ```bash
    bundle install
    ```
 
-Migrate database
+4. Migrate database and run seeder for dummy data
    ```bash
    rails db:migrate
+   rails db:seed
    ```
 
-Setup secret key base, by running this command, and put the result on `SECRET_KEY_BASE` value inside .env file
+5. Setup secret key base, by running this command, and put the result on `SECRET_KEY_BASE` value inside .env file
    ```bash
    rake secret
    ```
 
-Start application
+6. Start application
    ```bash
    rails s
    ```
