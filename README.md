@@ -1,24 +1,42 @@
-# README
+# Wakaf API Service
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This service belongs to client service (application) that has a purposes as waqf platform.
 
-Things you may want to cover:
+## Stacks
 
-* Ruby version
+- Ruby (v2.6.5)
+- Ruby on Rails (v6.0.3)
+- MySQL
+- Redis
 
-* System dependencies
+## How To Install
 
-* Configuration
+1. Clone repository (SSH recommended)
+   ```bash
+   git clone git@github.com:zainafifaldi/wakaf-api.git
+   ```
 
-* Database creation
+Copy environment file, and edit based on your configuration
+   ```bash
+   cp .env.example .env
+   ```
 
-* Database initialization
+Install dependencies
+   ```bash
+   bundle install
+   ```
 
-* How to run the test suite
+Migrate database
+   ```bash
+   rails db:migrate
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
+Setup secret key base, by running this command, and put the result on `SECRET_KEY_BASE` value inside .env file
+   ```bash
+   rake secret
+   ```
 
-* Deployment instructions
-
-* ...
+Start application
+   ```bash
+   rails s
+   ```

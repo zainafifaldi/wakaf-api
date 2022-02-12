@@ -7,7 +7,7 @@ class CreateInvoices < ActiveRecord::Migration[6.0]
       t.string :payment_method
       t.text :payment_detail
       t.integer :state, limit: 1
-      t.datetime :due_time
+      t.datetime :expire_time
       t.string :payment_evidence_url
 
       t.timestamps
