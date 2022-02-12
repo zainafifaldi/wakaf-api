@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  transaction_id: MyString
+  amount: MyString
+  payment_method: MyString
+  payment_detail: MyString
+  state: MyString
+  due_time: MyString
+  payment_evidence_url: MyString
+
+two:
+  transaction_id: MyString
+  amount: MyString
+  payment_method: MyString
+  payment_detail: MyString
+  state: MyString
+  due_time: MyString
+  payment_evidence_url: MyString
