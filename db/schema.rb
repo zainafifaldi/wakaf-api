@@ -80,6 +80,7 @@ ActiveRecord::Schema.define(version: 2022_02_12_042732) do
     t.text "address"
     t.string "password_digest"
     t.boolean "email_verified"
+    t.string "roles_adjustment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
