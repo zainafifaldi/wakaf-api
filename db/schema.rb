@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2022_02_12_042732) do
     t.decimal "price", precision: 10
     t.text "description"
     t.integer "stock"
+    t.boolean "active", default: true
+    t.integer "sold_count", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

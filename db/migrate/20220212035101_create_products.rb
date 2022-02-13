@@ -5,6 +5,8 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.decimal :price
       t.text :description
       t.integer :stock
+      t.boolean :active, default: true
+      t.integer :sold_count, default: 0
 
       t.timestamps
     end

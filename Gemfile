@@ -22,6 +22,8 @@ gem 'jwt'
 gem 'bcrypt', '~> 3.1.7'
 # Use .env file for environment
 gem 'dotenv-rails'
+# Use active model serializers for json response
+gem 'active_model_serializers', '~> 0.10.0'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'

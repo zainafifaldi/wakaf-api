@@ -1,1 +1,3 @@
-Dir["#{Rails.root}/lib/*.rb"].each {|file| load file}
+Dir[
+  "#{Rails.root}/lib/*.rb"
+].each {|file| load file}

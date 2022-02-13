@@ -2,11 +2,11 @@ class AuthenticationController < ApplicationController
   def sign_in
     @user = User.find_by_email(sign_in_params[:email])
     if @user&.authenticate(sign_in_params[:password])
-      time = Time.now + 24.hours.to_i
+      time = Time.now.utc + 24.hours.to_i
       token = JsonWebToken.encode({ user_id: @user.id }, time)
       render json: {
         token: token,
-        exp: time.strftime("%Y-%m-%d %H:%M:%S"),
+        expire_time: time,
         name: @user.name,
         email: @user.email,
         phone_number: @user.phone_number,
