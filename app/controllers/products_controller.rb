@@ -10,7 +10,7 @@ class ProductsController < ApplicationController
 
     render_serializer product, Products::ProductSerializer
   rescue ActiveRecord::RecordNotFound
-    render json: { error: 'Product Not Found' }, status: :not_found
+    render_error 'Product Not Found', meta: { http_status: :not_found }
   end
 
   private
