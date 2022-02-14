@@ -7,6 +7,9 @@ class CreateCarts < ActiveRecord::Migration[6.0]
       t.integer :quantity
 
       t.timestamps
+
+      t.index [:reference, :user_id]
+      t.index :product_id
     end
   end
 end

@@ -10,6 +10,8 @@ class CreateUsers < ActiveRecord::Migration[6.0]
       t.string :roles_adjustment
 
       t.timestamps
+
+      t.index :email
     end
   end
 end

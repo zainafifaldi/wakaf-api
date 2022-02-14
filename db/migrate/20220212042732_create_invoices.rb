@@ -3,6 +3,7 @@ class CreateInvoices < ActiveRecord::Migration[6.0]
     create_table :invoices do |t|
       t.string :invoice_number
       t.integer :transaction_id
+      t.integer :user_id
       t.decimal :amount
       t.string :payment_method
       t.text :payment_detail
@@ -11,6 +12,10 @@ class CreateInvoices < ActiveRecord::Migration[6.0]
       t.string :payment_evidence_url
 
       t.timestamps
+
+      t.index :invoice_number
+      t.index :transaction_id
+      t.index [:user_id, :state]
     end
   end
 end

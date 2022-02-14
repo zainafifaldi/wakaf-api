@@ -9,6 +9,9 @@ class CreateTransactionProducts < ActiveRecord::Migration[6.0]
       t.integer :state, limit: 1
 
       t.timestamps
+
+      t.index :transaction_id
+      t.index [:product_id, :state]
     end
   end
 end

@@ -6,6 +6,8 @@ class CreateProductImages < ActiveRecord::Migration[6.0]
       t.integer :order, limit: 1
 
       t.timestamps
+
+      t.index :product_id
     end
   end
 end

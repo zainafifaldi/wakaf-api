@@ -9,6 +9,8 @@ class CreateProducts < ActiveRecord::Migration[6.0]
       t.integer :sold_count, default: 0
 
       t.timestamps
+
+      t.index :active
     end
   end
 end
