@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2022_02_12_042732) do
     t.string "phone_number"
     t.text "address"
     t.string "password_digest"
-    t.boolean "email_verified"
+    t.boolean "email_verified", default: false
     t.string "roles_adjustment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

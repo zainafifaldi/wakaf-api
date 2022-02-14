@@ -1,21 +1,37 @@
 class ApplicationController < ActionController::API
-  def authorize_request(*roles)
-    authorization_header = request.headers['Authorization']
-    method, token = authorization_header.present? ? authorization_header.split(' ') : [nil, nil]
+  rescue_from Errors::ServiceError do |e|
+    render_error e.message, status: :unprocessable_entity
+  end
 
-    if method == 'Token'
-      begin
-        @decoded = JsonWebToken.decode(token)
-        @current_user = User.find(@decoded[:user_id])
+  def render_serializer(resource_or_resources, class_name, options = {})
+    render_params = { json: resource_or_resources }.merge(options)
 
-        render json: { errors: 'Forbidden access' }, status: :forbidden unless @current_user.valid_roles?(roles)
-      rescue ActiveRecord::RecordNotFound => e
-        render json: { errors: 'Authorization failed' }, status: :unauthorized
-      rescue JWT::DecodeError => e
-        render json: { errors: e.message }, status: :unauthorized
-      end
+    if resource_or_resources.is_a?(Array)
+      render_params[:each_serializer] = class_name
     else
-      render json: { errors: 'Wrong authorization method' }, status: :unauthorized
+      render_params[:serializer] = class_name
     end
+
+    render render_params
+  end
+
+  def render_message(message, options)
+    render_params = { json: { message: message } }.merge(options)
+    render_params[:status] = :ok unless render_params[:status].present?
+    render render_params
+  end
+  
+  def render_error(error, options)
+    render_params = { json: { error: error } }.merge(options)
+    render_params[:status] = :unprocessable_entity unless render_params[:status].present?
+    render render_params
+  end
+
+  def authorize_request(*roles)
+    AuthorizationService.call(request.headers['Authorization'], roles)
+  rescue Errors::AuthorizationError => e
+    render_error e.message, status: :unauthorized
+  rescue Errors::ForbiddenError => e
+    render_error 'Forbidden access', status: :forbidden
   end
 end
