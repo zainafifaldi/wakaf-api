@@ -140,6 +140,9 @@ Get token for non-login user (guest)
 
 ### Get Product Detail [GET /products/{id}]
 
++ Parameters
+    + id: 1 (number, required) - Product ID
+
 + Request (application/json)
     + Headers
 
@@ -167,6 +170,9 @@ Get token for non-login user (guest)
 
 ### Get Product Images [GET /products/{id}/images]
 
++ Parameters
+    + id: 1 (number, required) - Product ID
+
 + Request (application/json)
     + Headers
 
@@ -185,6 +191,103 @@ Get token for non-login user (guest)
                     "updated_at": "2022-02-13T07:52:00.000Z"
                 }
             ],
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+## Carts Collection [/carts]
+
+Cart is acceptable for both user and guest which guests can have their own cart.
+To differentiate, use `Authorization` header below (`Token <TokenUser>` for logged-in user, OR `Guest <TokenGuest>` for non-logged-in user / guest).
+
+### Get Cart Products [GET /carts{?page,per_page}]
+
++ Parameters
+    + per_page: 10 (number, optional) - Number of requested records
+    + page: 1 (number, optional) - The requested page number
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>, Guest <TokenGuest>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "product": {
+                        "name": "Wakaf Makanan Berbuka Puasa",
+                        "price": 500000,
+                        "description": "Wakaf untuk santri berbuka puasa",
+                        "stock": 100,
+                        "sold_count": 100,
+                        "image": {
+                            "product_id": 1,
+                            "image_url": "wakaf_makanan2.png",
+                            "order": 1,
+                            "created_at": "2022-02-13T07:52:00.000Z",
+                            "updated_at": "2022-02-13T07:52:00.000Z"
+                        },
+                        "created_at": "2022-02-13T07:01:00.000Z",
+                        "updated_at": "2022-02-13T07:01:00.000Z"
+                    },
+                    "quantity": 2
+                }
+            ],
+            "meta": {
+                "http_status": 200,
+                "page": 1,
+                "per_page": 10,
+                "total": 1
+            }
+        }
+
+### Add Product To Cart [POST /carts]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>, Guest <TokenGuest>
+
+    + Body
+
+            {
+                "product_id": 1,
+                "quantity": 2
+            }
+
++ Response 201 (application/json)
+
+        {
+            "notice": {
+                "message": "Product added to cart successfuly"
+            },
+            "meta": {
+                "http_status": 201
+            }
+        }
+
+### Remove Product From Cart [DELETE /carts/{id}]
+
++ Parameters
+    + id: 1 (number, required) - Cart ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>, Guest <TokenGuest>
+
++ Response 200 (application/json)
+
+        {
+            "notice": {
+                "message": "Product removed from cart successfuly"
+            },
             "meta": {
                 "http_status": 200
             }
