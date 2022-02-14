@@ -12,7 +12,7 @@ module Serializable
     render_params[:meta] ||= {}
     render_params[:meta].reverse_merge!(http_status: :ok)
     render_params[:status] = render_params[:meta][:http_status]
-    render_params[:meta][:http_status] = Rack::Utils::SYMBOL_TO_STATUS_CODE[render_params[:meta][:http_status]]
+    render_params[:meta][:http_status] = get_http_status(render_params[:meta][:http_status])
 
     if resource_or_resources.is_a?(Array)
       render_params[:each_serializer] = class_name
@@ -31,6 +31,10 @@ module Serializable
     options[:meta][:http_status] = :unprocessable_entity unless options[:meta].present? && options[:meta][:http_status].present?
 
     render_serializer Serializers::Message.new(error), MessageSerializer, options.merge(root: ROOT_ERROR)
+  end
+
+  def get_http_status(http_status)
+    http_status.is_a?(Symbol) ? Rack::Utils::SYMBOL_TO_STATUS_CODE[http_status] : http_status
   end
 
   private
