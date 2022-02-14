@@ -13,6 +13,13 @@ class AuthenticationController < ApplicationController
     render_error 'Unauthorized', meta: { http_status: :unauthorized }
   end
 
+  def guest_in
+    cookie_id = request.headers['Cookie']
+    authentication = Authentications::GuestInService.call(cookie_id)
+
+    render_serializer authentication, Authentications::TokenSerializer
+  end
+
   private
 
   def register_params

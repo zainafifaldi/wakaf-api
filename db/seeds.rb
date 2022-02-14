@@ -12,7 +12,7 @@ if Rails.env.development? && User.count == 0
     email: 'aldi@zain.afif',
     phone_number: '081234567890',
     address: 'Pesona Bali Ciwaruga',
-    password: 'aldi',
+    password: 'aldi00',
     email_verified: true
   )
 end

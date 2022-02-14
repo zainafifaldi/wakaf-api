@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2022_02_14_151530) do
   end
 
   create_table "guests", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
-    t.text "cookie_id"
+    t.text "cookie_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
