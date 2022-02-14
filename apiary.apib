@@ -1,0 +1,191 @@
+FORMAT: 1A
+HOST: https://api.wakaf.org/
+SANDBOX_HOST: http://api.sandbox.wakaf.org/
+
+# Wakaf API
+
+API documentation for Wakaf Application.
+In every request must send `Accept:application/json` headers given that the response must a JSON type.
+
+## Authentication [/auth]
+
+### Register [POST /auth/register]
+
++ Request (application/json)
+    + Headers
+        
+            Accept: application/json
+
+    + Body
+
+            {
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "password": "aldi",
+                "password_confirmation": "aldi",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View"
+            }
+
++ Response 201 (application/json)
+
+        {
+            "message": "Register successful",
+            "meta": {
+                "http_status": 201
+            }
+        }
+
+### Sign In [POST /auth/sign_in]
+
++ Request (application/json)
+    + Headers
+        
+            Accept: application/json
+
+    + Body
+
+            {
+                "email": "aldi@zain.afif",
+                "password": "aldi"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDQ5MzE5NDB9.K6HcyF-mDYTpSLCX700nMYnauh9n6ClHvKM74_-sfyA",
+                "expire_time": "2022-02-15T13:00:00.000Z",
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+### Guest In [POST /auth/guest_in]
+
+Get token for non-login user (guest)
+
++ Request (application/json)
+    + Headers
+        
+            Accept: application/json
+            Cookie: APq-WBvPDfMS332qZ52w-ijzty97XmqwSg...
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDQ5MzE5NDB9.K6HcyF-mDYTpSLCX700nMYnauh9n6ClHvKM74_-sfyA"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+## Products Collection [/products]
+
+### Get Products [GET /products{?query,page,per_page,sort}]
+
++ Parameters
+    + query: `wakaf` (string, optional) - String for product search
+    + per_page: 10 (number, optional) - Number of requested records
+    + page: 1 (number, optional) - The requested page number
+    + sort: `most_popular` (enum, optional) - Product sort order by
+        + `most_popular`
+        + `least_popular`
+        + `newest`
+        + `oldest`
+        + `price_lowest`
+        + `price_highest`
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "name": "Wakaf Makanan Berbuka Puasa",
+                    "price": 500000,
+                    "description": "Wakaf untuk santri berbuka puasa",
+                    "stock": 100,
+                    "sold_count": 100,
+                    "image": {
+                        "product_id": 1,
+                        "image_url": "wakaf_makanan2.png",
+                        "order": 1,
+                        "created_at": "2022-02-13T07:52:00.000Z",
+                        "updated_at": "2022-02-13T07:52:00.000Z"
+                    },
+                    "created_at": "2022-02-13T07:01:00.000Z",
+                    "updated_at": "2022-02-13T07:01:00.000Z"
+                }
+            ],
+            "meta": {
+                "http_status": 200,
+                "page": 1,
+                "per_page": 10,
+                "total": 1
+            }
+        }
+
+### Get Product Detail [GET /products/{id}]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "name": "Wakaf Makanan Berbuka Puasa",
+                "price": 500000,
+                "description": "Wakaf untuk santri berbuka puasa",
+                "stock": 100,
+                "sold_count": 100,
+                "created_at": "2022-02-13T07:01:00.000Z",
+                "updated_at": "2022-02-13T07:01:00.000Z"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+## Product Images Collection [/products/{id}/images]
+
+### Get Product Images [GET /products/{id}/images]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "product_id": 1,
+                    "image_url": "wakaf_makanan2.png",
+                    "order": 1,
+                    "created_at": "2022-02-13T07:52:00.000Z",
+                    "updated_at": "2022-02-13T07:52:00.000Z"
+                }
+            ],
+            "meta": {
+                "http_status": 200
+            }
+        }
