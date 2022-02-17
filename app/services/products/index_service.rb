@@ -1,5 +1,5 @@
 module Products
-  class IndexService < ApplicationService
+  class IndexService < AppService
     attr_reader :params
 
     def initialize(params)

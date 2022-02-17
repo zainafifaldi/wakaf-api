@@ -1,5 +1,5 @@
 module Products
-  class ShowService < ApplicationService
+  class ShowService < AppService
     attr_reader :product_id
 
     def initialize(product_id)

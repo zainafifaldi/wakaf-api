@@ -1,4 +1,4 @@
-class AuthorizationService < ApplicationService
+class AuthorizationService < AppService
   attr_reader :authorization_header, :roles
 
   def initialize(authorization_header, roles)

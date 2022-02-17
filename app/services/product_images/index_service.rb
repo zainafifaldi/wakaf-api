@@ -1,5 +1,5 @@
 module ProductImages
-  class IndexService < ApplicationService
+  class IndexService < AppService
     attr_reader :product_id
 
     def initialize(product_id)

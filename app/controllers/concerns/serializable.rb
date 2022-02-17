@@ -23,11 +23,11 @@ module Serializable
     render render_params
   end
 
-  def render_message(message, options)
+  def render_message(message, options = {})
     render_serializer Serializers::Message.new(message), MessageSerializer, options.merge(root: ROOT_NOTICE)
   end
   
-  def render_error(error, options)
+  def render_error(error, options = {})
     options[:meta][:http_status] = :unprocessable_entity unless options[:meta].present? && options[:meta][:http_status].present?
 
     render_serializer Serializers::Message.new(error), MessageSerializer, options.merge(root: ROOT_ERROR)

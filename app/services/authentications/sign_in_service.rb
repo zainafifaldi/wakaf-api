@@ -1,5 +1,5 @@
 module Authentications
-  class SignInService < ApplicationService
+  class SignInService < AppService
     attr_reader :params, :time_to_live
 
     def initialize(params)

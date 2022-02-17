@@ -1,12 +1,16 @@
-class AuthenticationController < ApplicationController
+class AuthenticationsController < ApplicationController
   def register
-    Authentications::RegisterService.call(register_params)
+    user = Authentications::RegisterService.call(register_params)
+
+    Carts::GuestCartMigrationService.call(current_guest, user) if current_guest.present?
 
     render_message 'Register successful', meta: { http_status: :created }
   end
 
   def sign_in
     authentication = Authentications::SignInService.call(sign_in_params)
+
+    Carts::GuestCartMigrationService.call(current_guest, authentication.user) if current_guest.present?
 
     render_serializer authentication, Authentications::AuthenticationSerializer
   rescue Authentications::Errors::Unauthorized

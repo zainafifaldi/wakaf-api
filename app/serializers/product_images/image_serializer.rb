@@ -1,6 +1,7 @@
 module ProductImages
   class ImageSerializer < ActiveModel::Serializer
-    attributes :product_id,
+    attributes :id,
+               :product_id,
                :image_url,
                :order,
                :created_at,

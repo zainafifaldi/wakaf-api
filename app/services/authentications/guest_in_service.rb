@@ -1,5 +1,5 @@
 module Authentications
-  class GuestInService < ApplicationService
+  class GuestInService < AppService
     attr_reader :cookie_id
 
     def initialize(cookie_id)

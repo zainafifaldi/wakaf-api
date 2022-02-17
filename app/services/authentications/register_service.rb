@@ -1,5 +1,5 @@
 module Authentications
-  class RegisterService < ApplicationService
+  class RegisterService < AppService
     attr_reader :params
 
     def initialize(params)

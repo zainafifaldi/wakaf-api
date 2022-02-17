@@ -1,6 +1,7 @@
 module Products
   class ProductWithImageSerializer < ActiveModel::Serializer
-    attributes :name,
+    attributes :id,
+               :name,
                :price,
                :description,
                :stock,
