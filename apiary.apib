@@ -11,6 +11,8 @@ In every request must send `Accept:application/json` headers given that the resp
 
 ### Register [POST /auth/register]
 
+After registering, guest who has items in cart, will have those items migrated automatically to their user account.
+
 + Request (application/json)
     + Headers
         
@@ -38,6 +40,8 @@ In every request must send `Accept:application/json` headers given that the resp
 
 ### Sign In [POST /auth/sign_in]
 
+After logging in, guest who has items in cart, will have those items migrated automatically to their user account.
+
 + Request (application/json)
     + Headers
         
@@ -56,6 +60,7 @@ In every request must send `Accept:application/json` headers given that the resp
             "data": {
                 "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDQ5MzE5NDB9.K6HcyF-mDYTpSLCX700nMYnauh9n6ClHvKM74_-sfyA",
                 "expire_time": "2022-02-15T13:00:00.000Z",
+                "user_id": 1,
                 "name": "Aldi Zainafif",
                 "email": "aldi@zain.afif",
                 "phone_number": "081234567890",
@@ -114,12 +119,14 @@ Get token for non-login user (guest)
         {
             "data": [
                 {
+                    "id": 1,
                     "name": "Wakaf Makanan Berbuka Puasa",
                     "price": 500000,
                     "description": "Wakaf untuk santri berbuka puasa",
                     "stock": 100,
                     "sold_count": 100,
                     "image": {
+                        "id": 1,
                         "product_id": 1,
                         "image_url": "wakaf_makanan2.png",
                         "order": 1,
@@ -153,6 +160,7 @@ Get token for non-login user (guest)
 
         {
             "data": {
+                "id": 1,
                 "name": "Wakaf Makanan Berbuka Puasa",
                 "price": 500000,
                 "description": "Wakaf untuk santri berbuka puasa",
@@ -184,6 +192,7 @@ Get token for non-login user (guest)
         {
             "data": [
                 {
+                    "id": 1,
                     "product_id": 1,
                     "image_url": "wakaf_makanan2.png",
                     "order": 1,
@@ -201,11 +210,12 @@ Get token for non-login user (guest)
 Cart is acceptable for both user and guest which guests can have their own cart.
 To differentiate, use `Authorization` header below (`Token <TokenUser>` for logged-in user, OR `Guest <TokenGuest>` for non-logged-in user / guest).
 
-### Get Cart Products [GET /carts{?page,per_page}]
+### Get Cart Products [GET /carts{?page,per_page,selected_ids}]
 
 + Parameters
     + per_page: 10 (number, optional) - Number of requested records
     + page: 1 (number, optional) - The requested page number
+    + selected_ids: 1,2,3 (array, optional) - Select specific IDs of cart -- This will ignore pagination
 
 + Request (application/json)
     + Headers
@@ -218,13 +228,16 @@ To differentiate, use `Authorization` header below (`Token <TokenUser>` for logg
         {
             "data": [
                 {
+                    "id": 1,
                     "product": {
+                        "id": 1,
                         "name": "Wakaf Makanan Berbuka Puasa",
                         "price": 500000,
                         "description": "Wakaf untuk santri berbuka puasa",
                         "stock": 100,
                         "sold_count": 100,
                         "image": {
+                            "id": 1,
                             "product_id": 1,
                             "image_url": "wakaf_makanan2.png",
                             "order": 1,
@@ -268,6 +281,34 @@ To differentiate, use `Authorization` header below (`Token <TokenUser>` for logg
             },
             "meta": {
                 "http_status": 201
+            }
+        }
+
+### Update Cart [PATCH /carts/{id}]
+
++ Parameters
+    + id: 1 (number, required) - Cart ID
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>, Guest <TokenGuest>
+
+    + Body
+
+            {
+                "quantity": 2
+            }
+
++ Response 200 (application/json)
+
+        {
+            "notice": {
+                "message": "Cart updated successfuly"
+            },
+            "meta": {
+                "http_status": 200
             }
         }
 
