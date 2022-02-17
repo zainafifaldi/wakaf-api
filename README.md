@@ -2,6 +2,10 @@
 
 This service belongs to client service (application) that has a purposes as waqf platform.
 
+## API Blueprint Documentation
+
+https://wakafapi.docs.apiary.io/
+
 ## Stacks
 
 - Ruby (v2.6.5)
