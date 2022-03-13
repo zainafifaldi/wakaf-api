@@ -49,3 +49,4 @@ https://wakafapi.docs.apiary.io/
 ## Application
 
 Access the service by hitting [`http://localhost:8118`](http://localhost:8118)
+
