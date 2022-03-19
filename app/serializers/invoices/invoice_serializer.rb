@@ -11,5 +11,11 @@ module Invoices
                :payment_evidence_url,
                :created_at,
                :updated_at
+
+    def payment_detail
+      JSON.parse(object.payment_detail)
+    rescue JSON::ParserError
+      object.payment_detail
+    end
   end
 end

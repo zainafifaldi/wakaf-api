@@ -42,7 +42,7 @@ class CartsController < ApplicationController
   end
 
   def current_resource
-    @cart ||= Cart.find(params[:id])
+    @current_resource ||= Cart.find(params[:id])
   end
 
   def index_params
