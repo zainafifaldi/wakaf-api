@@ -361,7 +361,28 @@ This transaction creation doesn't implement stock locking. It can reduces stock 
 
         {
             "data": {
-                "id": 1
+                "id": 1,
+                "transaction_number": "WKFTRX0000001",
+                "donor_name": "Muhammad",
+                "donor_phone_number": "081234567890",
+                "donor_email": "muhammad@wakaf.id",
+                "products": [
+                    {
+                        "id": 1,
+                        "name": "Wakaf Makanan Berbuka Puasa",
+                        "price": 500000,
+                        "description": "Wakaf untuk santri berbuka puasa",
+                        "quantity": 100,
+                        "image_urls": [
+                            "wakaf_makanan1.png",
+                            "wakaf_makanan2.png"
+                        ],
+                        "state": "pending"
+                    }
+                ],
+                "state": "pending",
+                "created_at": "2022-02-13T07:01:00.000Z",
+                "updated_at": "2022-02-13T07:01:00.000Z"
             },
             "meta": {
                 "http_status": 201
@@ -480,8 +501,29 @@ This transaction creation doesn't implement stock locking. It can reduces stock 
 + Response 200 (application/json)
 
         {
-            "notice": {
-                "message": "Transaction state successfully updated"
+            "data": {
+                "id": 1,
+                "transaction_number": "WKFTRX0000001",
+                "donor_name": "Muhammad",
+                "donor_phone_number": "081234567890",
+                "donor_email": "muhammad@wakaf.id",
+                "products": [
+                    {
+                        "id": 1,
+                        "name": "Wakaf Makanan Berbuka Puasa",
+                        "price": 500000,
+                        "description": "Wakaf untuk santri berbuka puasa",
+                        "quantity": 100,
+                        "image_urls": [
+                            "wakaf_makanan1.png",
+                            "wakaf_makanan2.png"
+                        ],
+                        "state": "pending"
+                    }
+                ],
+                "state": "processed",
+                "created_at": "2022-02-13T07:01:00.000Z",
+                "updated_at": "2022-02-13T07:01:00.000Z"
             },
             "meta": {
                 "http_status": 200
@@ -511,14 +553,14 @@ Benefit, for example: Tagian/Wakaf belum dibayar
             "data": [
                 {
                     "id": 1,
-                    "invoice_number": "WKFTRX0000001",
+                    "invoice_number": "WKF0000001INV",
                     "transaction_id": 1,
                     "amount": 50000,
                     "payment_method": "bank_transfer",
                     "payment_detail": {
-                        "bank_name": "Bank Muamalat",
-                        "account_number": "01234567890",
-                        "account_behalf": "Yayasan Wakaf"
+                        "name": "Bank Muamalat",
+                        "number": "01234567890",
+                        "behalf": "Yayasan Wakaf"
                     },
                     "state": "pending",
                     "expire_time": "2022-02-14T07:01:00.000Z",
@@ -556,9 +598,9 @@ Benefit, for example: Tagian/Wakaf belum dibayar
                 "amount": 50000,
                 "payment_method": "bank_transfer",
                 "payment_detail": {
-                    "bank_name": "Bank Muamalat",
-                    "account_number": "01234567890",
-                    "account_behalf": "Yayasan Wakaf"
+                    "name": "Bank Muamalat",
+                    "number": "01234567890",
+                    "behalf": "Yayasan Wakaf"
                 },
                 "state": "pending",
                 "expire_time": "2022-02-14T07:01:00.000Z",
