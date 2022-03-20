@@ -7,9 +7,13 @@ class CartsController < ApplicationController
   end
 
   def index
-    carts = Carts::IndexService.call(current_user_or_guest, index_params)
+    result = Carts::IndexService.call(current_user_or_guest, index_params)
 
-    render_serializer carts.to_a, Carts::CartWithProductAndImageSerializer
+    meta_options = { total: result[:total] }
+    meta_options[:page] = (result[:page] || 1) if result[:per_page].present?
+    meta_options[:per_page] = result[:per_page] if result[:per_page].present?
+
+    render_serializer result[:carts].to_a, Carts::CartWithProductAndImageSerializer, { meta: meta_options }
   end
 
   def create

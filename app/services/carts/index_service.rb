@@ -1,5 +1,7 @@
 module Carts
   class IndexService < AppService
+    include PaginatableResources
+
     attr_reader :current_user_or_guest, :params
 
     def initialize(current_user_or_guest, params)
@@ -13,9 +15,16 @@ module Carts
       @carts = @carts.where(id: selected_ids) if ids_selected?
       @carts = @carts.order(updated_at: :desc)
 
-      set_pagination unless ids_selected?
+      total = @carts.count
 
-      @carts.includes(product: [:images]).all
+      @carts = set_pagination(@carts, params) unless ids_selected?
+
+      {
+        carts:    @carts.includes(product: [:images]).all,
+        page:     @page,
+        per_page: @per_page,
+        total:    total
+      }
     end
 
     private
@@ -30,11 +39,6 @@ module Carts
 
     def carts_by_user_type
       user? ? Cart.user : Cart.guest
-    end
-
-    def set_pagination
-      @carts = @carts.limit(params[:per_page].to_i) if params[:per_page].present?
-      @carts = @carts.offset((params[:page].to_i - 1) * params[:per_page].to_i) if params[:page].present?
     end
   end
 end

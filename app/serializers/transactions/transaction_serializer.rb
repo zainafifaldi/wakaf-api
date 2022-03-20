@@ -1,5 +1,5 @@
 module Transactions
-  class TransactionDetailSerializer < ActiveModel::Serializer
+  class TransactionSerializer < ActiveModel::Serializer
     attributes :id,
                :transaction_number,
                :donor_name,
