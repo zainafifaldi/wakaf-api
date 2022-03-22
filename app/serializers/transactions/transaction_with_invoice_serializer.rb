@@ -1,6 +1,6 @@
 module Transactions
   class TransactionWithInvoiceSerializer < TransactionSerializer
-    has_one :invoice, serializer: Invoice::InvoiceSerializer
+    has_one :invoice, serializer: Invoices::InvoiceSerializer
 
     def invoice
       object.invoices.first

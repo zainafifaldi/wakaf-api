@@ -2,6 +2,18 @@ class InvoicesController < ApplicationController
   before_action -> { authorize_request }
   before_action -> { validate_resource!(current_resource_by_trx) }, only: [:show_by_trx]
 
+  def index
+    result = Invoices::IndexService.call(current_user, index_params)
+
+    meta_options = {
+      page:     (result[:page] || 1),
+      per_page: result[:per_page],
+      total:    result[:total]
+    }
+
+    render_serializer result[:invoices].to_a, invoices_serializer, { meta: meta_options }
+  end
+
   def show_by_trx
     validate_resource!(current_resource_by_trx)
 
@@ -9,6 +21,10 @@ class InvoicesController < ApplicationController
   end
 
   private
+
+  def index_params
+    params.permit(:page, :per_page, :with_detail, states: [])
+  end
 
   def validate_resource!(resource)
     if resource.present?
@@ -32,5 +48,9 @@ class InvoicesController < ApplicationController
 
       invoice
     end
+  end
+
+  def invoices_serializer
+    params[:with_detail].to_s == 'true' ? Invoices::InvoiceDetailSerializer : Invoices::InvoiceSerializer
   end
 end

@@ -1,5 +1,7 @@
 module Carts
   class IndexService < AppService
+    MAX_PER_PAGE = 20
+
     include PaginatableResources
 
     attr_reader :current_user_or_guest, :params

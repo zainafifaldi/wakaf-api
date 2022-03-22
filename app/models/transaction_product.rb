@@ -8,8 +8,8 @@ class TransactionProduct < ApplicationRecord
   belongs_to :trx, class_name: 'Transaction', foreign_key: :transaction_id
   belongs_to :product, class_name: 'Product'
 
-  # has_many :images, class_name: 'ProductImage', foreign_key: :product_id, primary_key: :product_id
-  has_many :images, class_name: 'ProductImage', through: :product
+  has_many :images, class_name: 'ProductImage', foreign_key: :product_id, primary_key: :product_id
+  # has_many :images, class_name: 'ProductImage', through: :product # Will select products first
 
   before_create :set_initial_state
 
