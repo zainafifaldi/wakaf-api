@@ -1,5 +1,9 @@
 module Products
   class IndexService < AppService
+    MAX_PER_PAGE = 20
+
+    include PaginatableResources
+
     attr_reader :params
 
     def initialize(params)
@@ -7,12 +11,17 @@ module Products
     end
 
     def call
-      @products = Product.active.includes(:images)
+      @products = Product.active
       @products = @products.where('name LIKE ?', "%#{params[:query]}%") if params[:query].present?
       @products = order_products
-      @products = @products.limit(params[:per_page].to_i) if params[:per_page].present?
-      @products = @products.offset((params[:page].to_i - 1) * params[:per_page].to_i) if params[:page].present?
-      @products.all
+      @products = set_pagination(@products, params)
+
+      {
+        products: @products.includes(:images).all,
+        page:     @page,
+        per_page: @per_page,
+        total:    total
+      }
     end
 
     private

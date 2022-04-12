@@ -1,8 +1,14 @@
 class ProductsController < ApplicationController
   def index
-    products = Products::IndexService.call(index_params)
+    result = Products::IndexService.call(index_params)
 
-    render_serializer products.to_a, Products::ProductWithImageSerializer
+    meta_options = {
+      page:     (result[:page] || 1),
+      per_page: result[:per_page],
+      total:    result[:total]
+    }
+
+    render_serializer result[:products].to_a, Products::ProductWithImageSerializer, { meta: meta_options }
   end
 
   def show
