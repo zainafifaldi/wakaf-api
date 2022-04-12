@@ -14,6 +14,9 @@ module Products
       @products = Product.active
       @products = @products.where('name LIKE ?', "%#{params[:query]}%") if params[:query].present?
       @products = order_products
+
+      total = @products.count
+
       @products = set_pagination(@products, params)
 
       {
