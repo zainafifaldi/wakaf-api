@@ -27,7 +27,7 @@ class AuthenticationsController < ApplicationController
   private
 
   def register_params
-    params.permit(:email, :name, :password, :password_confirmation, :phone_number, :address)
+    params.permit(:email, :name, :password, :phone_number, :address)
   end
 
   def sign_in_params

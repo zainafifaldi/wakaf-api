@@ -7,15 +7,10 @@ module Authentications
     end
 
     def call
-      validate_password!
       create_user
     end
 
     private
-
-    def validate_password!
-      raise Authentications::Errors::Register.new('Invalid password confirmation') if params[:password] != params[:password_confirmation]
-    end
 
     def create_user
       User.create!(
