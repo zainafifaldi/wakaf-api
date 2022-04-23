@@ -4,7 +4,9 @@ class AuthenticationsController < ApplicationController
 
     Carts::GuestCartMigrationService.call(current_guest, user) if current_guest.present?
 
-    render_message 'Register successful', meta: { http_status: :created }
+    authentication = Authentications::SignInService.call(register_params.permit(:email, :password))
+
+    render_serializer authentication, Authentications::AuthenticationSerializer, meta: { http_status: :created }
   end
 
   def sign_in
