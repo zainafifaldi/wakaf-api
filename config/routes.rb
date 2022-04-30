@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :banners
   resources :carts
   resources :invoices do
     get 'trx/:transaction_id', action: :show_by_trx, on: :collection

@@ -99,6 +99,32 @@ Get token for non-login user (guest)
             }
         }
 
+## Banners Collection [/banners]
+
+### Get Banners [GET /banners]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "id": 1,
+                    "image_url": "https://wakaf.api/banner1.jpeg",
+                    "order": 1,
+                    "created_at": "2022-02-13T07:01:00.000Z",
+                    "updated_at": "2022-02-13T07:01:00.000Z"
+                }
+            ],
+            "meta": {
+                "http_status": 200
+            }
+        }
+
 ## Products Collection [/products]
 
 ### Get Products [GET /products{?query,page,per_page,sort}]
