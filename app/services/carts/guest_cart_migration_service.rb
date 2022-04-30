@@ -8,9 +8,9 @@ module Carts
     end
 
     def call
-      carts = Carts::IndexService.call(current_guest, {})
+      result = Carts::IndexService.call(current_guest, {})
 
-      carts.each do |cart|
+      result[:carts].each do |cart|
         migrate_cart(cart)
       end
     end
