@@ -23,7 +23,7 @@ After registering, guest who has items in cart, will have those items migrated a
             {
                 "name": "Aldi Zainafif",
                 "email": "aldi@zain.afif",
-                "password": "aldi",
+                "password": "123456",
                 "phone_number": "081234567890",
                 "address": "Komp. Pesona Bali City View"
             }
@@ -99,6 +99,73 @@ Get token for non-login user (guest)
             }
         }
 
+## Users Collection [/users]
+
+### Get Self User Detail [GET /users/me]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View",
+                "email_verified": true,
+                "roles": ['manager'],
+                "created_at": "2022-02-17T14:38:04.909Z",
+                "updated_at": "2022-02-17T14:38:04.909Z"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+### Update Self User Detail [PATCH /users/me]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
+    + Body
+
+            {
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View",
+                "old_password": "123456",
+                "new_password": "1234567"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View",
+                "email_verified": true,
+                "roles": ['manager'],
+                "created_at": "2022-02-17T14:38:04.909Z",
+                "updated_at": "2022-02-17T14:38:04.909Z"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
 ## Banners Collection [/banners]
 
 ### Get Banners [GET /banners]
@@ -145,7 +212,6 @@ Get token for non-login user (guest)
     + Headers
 
             Accept: application/json
-            Authorization: Token <TokenUser>
 
 + Response 200 (application/json)
 
@@ -187,7 +253,6 @@ Get token for non-login user (guest)
     + Headers
 
             Accept: application/json
-            Authorization: Token <TokenUser>
 
 + Response 200 (application/json)
 
@@ -218,7 +283,6 @@ Get token for non-login user (guest)
     + Headers
 
             Accept: application/json
-            Authorization: Token <TokenUser>
 
 + Response 200 (application/json)
 
