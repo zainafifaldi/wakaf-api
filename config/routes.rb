@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   end
   resources :transactions
   resources :transaction_products
-  resources :users
+  resources :users do
+    get 'me', action: :show_me, on: :collection
+    patch 'me', action: :update_me, on: :collection
+  end
 
   post 'auth/guest_in', to: 'authentications#guest_in'
   post 'auth/sign_in', to: 'authentications#sign_in'
