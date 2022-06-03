@@ -23,7 +23,7 @@ After registering, guest who has items in cart, will have those items migrated a
             {
                 "name": "Aldi Zainafif",
                 "email": "aldi@zain.afif",
-                "password": "aldi",
+                "password": "123456",
                 "phone_number": "081234567890",
                 "address": "Komp. Pesona Bali City View"
             }
@@ -31,8 +31,14 @@ After registering, guest who has items in cart, will have those items migrated a
 + Response 201 (application/json)
 
         {
-            "notice": {
-                "message": "Register successful",
+            "data": {
+                "token": "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE2NDQ5MzE5NDB9.K6HcyF-mDYTpSLCX700nMYnauh9n6ClHvKM74_-sfyA",
+                "expire_time": "2022-02-15T13:00:00.000Z",
+                "user_id": 1,
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View"
             },
             "meta": {
                 "http_status": 201
@@ -93,6 +99,99 @@ Get token for non-login user (guest)
             }
         }
 
+## Users Collection [/users]
+
+### Get Self User Detail [GET /users/me]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View",
+                "email_verified": true,
+                "roles": ['manager'],
+                "created_at": "2022-02-17T14:38:04.909Z",
+                "updated_at": "2022-02-17T14:38:04.909Z"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+### Update Self User Detail [PATCH /users/me]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+            Authorization: Token <TokenUser>
+
+    + Body
+
+            {
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View",
+                "old_password": "123456",
+                "new_password": "1234567"
+            }
+
++ Response 200 (application/json)
+
+        {
+            "data": {
+                "id": 1,
+                "name": "Aldi Zainafif",
+                "email": "aldi@zain.afif",
+                "phone_number": "081234567890",
+                "address": "Komp. Pesona Bali City View",
+                "email_verified": true,
+                "roles": ['manager'],
+                "created_at": "2022-02-17T14:38:04.909Z",
+                "updated_at": "2022-02-17T14:38:04.909Z"
+            },
+            "meta": {
+                "http_status": 200
+            }
+        }
+
+## Banners Collection [/banners]
+
+### Get Banners [GET /banners]
+
++ Request (application/json)
+    + Headers
+
+            Accept: application/json
+
++ Response 200 (application/json)
+
+        {
+            "data": [
+                {
+                    "id": 1,
+                    "image_url": "https://wakaf.api/banner1.jpeg",
+                    "order": 1,
+                    "created_at": "2022-02-13T07:01:00.000Z",
+                    "updated_at": "2022-02-13T07:01:00.000Z"
+                }
+            ],
+            "meta": {
+                "http_status": 200
+            }
+        }
+
 ## Products Collection [/products]
 
 ### Get Products [GET /products{?query,page,per_page,sort}]
@@ -113,7 +212,6 @@ Get token for non-login user (guest)
     + Headers
 
             Accept: application/json
-            Authorization: Token <TokenUser>
 
 + Response 200 (application/json)
 
@@ -155,7 +253,6 @@ Get token for non-login user (guest)
     + Headers
 
             Accept: application/json
-            Authorization: Token <TokenUser>
 
 + Response 200 (application/json)
 
@@ -186,7 +283,6 @@ Get token for non-login user (guest)
     + Headers
 
             Accept: application/json
-            Authorization: Token <TokenUser>
 
 + Response 200 (application/json)
 
