@@ -1,5 +1,5 @@
 class Invoice < ApplicationRecord
-  AVAILABLE_PAYMENT_METHODS = %w[bank_transfer]
+  AVAILABLE_PAYMENT_METHODS = %w[bank_transfer].freeze
   INV_NUMBER_PREFIX = 'WKF'.freeze
   INV_NUMBER_SUFFIX = 'INV'.freeze
   INV_NUMBER_LEN = 7

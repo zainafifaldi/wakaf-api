@@ -6,6 +6,7 @@ module Users
                :phone_number,
                :address,
                :email_verified,
+               :phone_number_verified,
                :roles,
                :created_at,
                :updated_at

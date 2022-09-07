@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_30_085656) do
+ActiveRecord::Schema.define(version: 2022_09_07_013122) do
 
   create_table "banners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "image_url"
@@ -111,7 +111,10 @@ ActiveRecord::Schema.define(version: 2022_04_30_085656) do
     t.string "roles_adjustment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "otp", limit: 4
+    t.boolean "phone_number_verified", default: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["phone_number"], name: "index_users_on_phone_number"
   end
 
 end

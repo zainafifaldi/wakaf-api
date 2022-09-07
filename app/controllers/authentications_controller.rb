@@ -1,4 +1,9 @@
 class AuthenticationsController < ApplicationController
+  ACTIONS = {
+    '1': :register,
+    '2': :sign_in
+  }
+
   def register
     user = Authentications::RegisterService.call(register_params)
 
@@ -7,6 +12,38 @@ class AuthenticationsController < ApplicationController
     authentication = Authentications::SignInService.call(register_params.permit(:email, :password))
 
     render_serializer authentication, Authentications::AuthenticationSerializer, meta: { http_status: :created }
+  end
+
+  def register_with_phone
+    user = Authentications::RegisterService.call(register_params)
+
+    user = Otp::NewRequestService.call(user)
+
+    render_serializer user, Users::UserDetailSerializer, meta: { http_status: :created }
+  end
+
+  def sign_in_with_phone
+    user = User.find_by_phone_number(params[:phone_number])
+
+    raise Authentications::Errors::Unauthorized unless user.present?
+
+    Otp::NewRequestService.call(user)
+
+    render_message 'Phone number is accepted', meta: { http_status: :accepted }
+  rescue Authentications::Errors::Unauthorized
+    render_error 'Phone number is not registered', meta: { http_status: :unauthorized }
+  end
+
+  def validate_otp
+    authentication = Authentications::SignInWithPhoneService.call(validate_otp_params)
+
+    if ACTIONS[validate_otp_params[:action]] == :register && current_guest.present?
+      Carts::GuestCartMigrationService.call(current_guest, user)
+    end
+
+    render_serializer authentication, Authentications::AuthenticationSerializer, meta: { http_status: :accepted }
+  rescue Otp::Errors::Validation
+    render_error 'Invalid OTP', meta: { http_status: :unauthorized }
   end
 
   def sign_in
@@ -34,5 +71,9 @@ class AuthenticationsController < ApplicationController
 
   def sign_in_params
     params.permit(:email, :password)
+  end
+
+  def validate_otp_params
+    params.permit(:phone_number, :otp, :action)
   end
 end
