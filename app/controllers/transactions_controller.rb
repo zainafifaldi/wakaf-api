@@ -3,8 +3,6 @@ class TransactionsController < ApplicationController
   before_action :validate_resource!, only: [:show]
 
   def create
-    validate_create_params!
-
     ActiveRecord::Base.transaction do
       @transaction = Transactions::CreateService.call(current_user, create_params)
       Carts::BatchRemoveService.call(current_user, create_params[:cart_ids])

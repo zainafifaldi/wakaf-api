@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_14_151530) do
+ActiveRecord::Schema.define(version: 2022_09_21_204500) do
+
+  create_table "banners", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.string "image_url"
+    t.integer "order", limit: 1
+    t.boolean "active", default: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "carts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.integer "product_id"
@@ -34,6 +42,8 @@ ActiveRecord::Schema.define(version: 2022_02_14_151530) do
     t.integer "transaction_id"
     t.integer "user_id"
     t.decimal "amount", precision: 10
+    t.decimal "unique_code", precision: 10
+    t.decimal "total_transfer", precision: 10
     t.string "payment_method"
     t.text "payment_detail"
     t.integer "state", limit: 1
@@ -41,7 +51,11 @@ ActiveRecord::Schema.define(version: 2022_02_14_151530) do
     t.string "payment_evidence_url"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.datetime "paid_at"
+    t.datetime "expired_at"
+    t.datetime "canceled_at"
     t.index ["invoice_number"], name: "index_invoices_on_invoice_number"
+    t.index ["state", "total_transfer"], name: "index_invoices_on_state_and_total_transfer"
     t.index ["transaction_id"], name: "index_invoices_on_transaction_id"
     t.index ["user_id", "state"], name: "index_invoices_on_user_id_and_state"
   end
@@ -103,7 +117,10 @@ ActiveRecord::Schema.define(version: 2022_02_14_151530) do
     t.string "roles_adjustment"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "otp", limit: 4
+    t.boolean "phone_number_verified", default: false
     t.index ["email"], name: "index_users_on_email"
+    t.index ["phone_number"], name: "index_users_on_phone_number"
   end
 
 end
