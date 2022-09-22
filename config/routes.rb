@@ -20,4 +20,10 @@ Rails.application.routes.draw do
   post 'auth/phones/otp', to: 'authentications#validate_otp'
   post 'auth/phones/register', to: 'authentications#register_with_phone'
   post 'auth/phones/sign_in', to: 'authentications#sign_in_with_phone'
+
+  namespace 'external', module: 'external' do
+    scope :moota, controller: 'moota' do
+      post 'pay_invoice'
+    end
+  end
 end

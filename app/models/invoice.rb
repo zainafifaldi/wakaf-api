@@ -3,6 +3,7 @@ class Invoice < ApplicationRecord
   INV_NUMBER_PREFIX = 'WKF'.freeze
   INV_NUMBER_SUFFIX = 'INV'.freeze
   INV_NUMBER_LEN = 7
+  UNIQUE_CODE_LEN = 3
 
   enum state: {
     pending:  0,
@@ -19,6 +20,12 @@ class Invoice < ApplicationRecord
 
   before_create :set_initial_state, :set_expire_time
   after_create :set_invoice_number
+
+  class << self
+    def unique_code_valid?(try_total_transfer)
+      !find_by(state: :pending, total_transfer: try_total_transfer).present?
+    end
+  end
 
   private
 
