@@ -16,9 +16,9 @@ module Invoices
       valid = false
       unique_code = 0
 
-      while valid == true && i < SEARCH_UNIQUE_CODE_ITERATION_LIMIT
+      while valid == false && i < SEARCH_UNIQUE_CODE_ITERATION_LIMIT
         pos = (i.zero? ? -1 : ((i - 1) % Invoice::UNIQUE_CODE_LEN))
-        unique_code = generate_unique_code(unique_code, pos)
+        unique_code = generate_unique_code(pos, unique_code)
         total_transfer = transaction_amount + unique_code
 
         valid = Invoice.unique_code_valid?(total_transfer)
