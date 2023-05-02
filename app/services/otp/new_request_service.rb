@@ -31,11 +31,12 @@ module Otp
     end
 
     def build_message(otp)
-      message = '[Wakaf Pondok Saif Al-Ulum]\n'
+      message = "[Wakaf Pondok Saif Al-Ulum]\n"
       message += "Assalamu\'alaikum, Kak *#{user.name}*\n"
       message += "Berikut kode OTP dari aplikasi Wakaf untuk keperluan registrasi / login Kakak:\n\n"
       message += "*#{otp}*\n\n"
-      message += 'Mohon jangan dibagikan ke siapapun ya.'
+      message += "Mohon jangan dibagikan ke siapapun ya 😊\n"
+      message += "Jazaakallaah khairan katsiiran"
       message
     end
   end
