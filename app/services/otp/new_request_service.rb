@@ -31,7 +31,7 @@ module Otp
     end
 
     def build_message(otp)
-      message = "[Wakaf Pondok Saif Al-Ulum]\n"
+      message = "[#{ENV['APP_NAME']}]\n"
       message += "Assalamu\'alaikum, Kak *#{user.name}*\n"
       message += "Berikut kode OTP dari aplikasi Wakaf untuk keperluan registrasi / login Kakak:\n\n"
       message += "*#{otp}*\n\n"

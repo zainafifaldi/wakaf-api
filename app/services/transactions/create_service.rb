@@ -15,6 +15,8 @@ module Transactions
       @transaction = TransactionProducts::CreateFromCartService.call(current_user, transaction, params[:cart_ids])
       @transaction.invoices << Invoices::CreateService.call(current_user, transaction, params)
 
+      Notifications::Transactions::WaitingPaymentService.call(current_user, transaction)
+
       transaction
     end
 

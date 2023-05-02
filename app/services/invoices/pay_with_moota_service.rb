@@ -18,6 +18,9 @@ module Invoices
         paid_at: DateTime.now,
         payment_detail: payment_detail.to_json
       )
+
+      Notifications::Transactions::CompleteService.call(invoice.trx.user, invoice.trx)
+
       invoice.reload
     end
 

@@ -8,6 +8,8 @@ class Transaction < ApplicationRecord
     cancel:  2
   }
 
+  belongs_to :user, class_name: 'User'
+
   has_many :products, class_name: 'TransactionProduct'
   has_many :invoices, class_name: 'Invoice'
 
