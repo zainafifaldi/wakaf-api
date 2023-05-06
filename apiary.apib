@@ -114,7 +114,8 @@ Register with phone number as an authorization. And also it will send an OTP to 
                 "name": "Aldi Zainafif",
                 "email": "aldi@zain.afif",
                 "phone_number": "081234567890",
-                "address": "Komp. Pesona Bali City View"
+                "address": "Komp. Pesona Bali City View",
+                "password": "123456"
             }
 
 + Response 201 (application/json)
@@ -127,6 +128,7 @@ Register with phone number as an authorization. And also it will send an OTP to 
                 "phone_number": "081234567890",
                 "address": "Komp. Pesona Bali City View",
                 "email_verified": false,
+                "phone_number_verified": false,
                 "roles": ['manager'],
                 "created_at": "2022-02-17T14:38:04.909Z",
                 "updated_at": "2022-02-17T14:38:04.909Z"
@@ -216,6 +218,7 @@ Validate OTP. It can be used by both "register with phone" and "sign in with pho
                 "phone_number": "081234567890",
                 "address": "Komp. Pesona Bali City View",
                 "email_verified": true,
+                "phone_number_verified": true,
                 "roles": ['manager'],
                 "created_at": "2022-02-17T14:38:04.909Z",
                 "updated_at": "2022-02-17T14:38:04.909Z"
@@ -254,6 +257,7 @@ Validate OTP. It can be used by both "register with phone" and "sign in with pho
                 "phone_number": "081234567890",
                 "address": "Komp. Pesona Bali City View",
                 "email_verified": true,
+                "phone_number_verified": true,
                 "roles": ['manager'],
                 "created_at": "2022-02-17T14:38:04.909Z",
                 "updated_at": "2022-02-17T14:38:04.909Z"

@@ -15,7 +15,7 @@ class AuthenticationsController < ApplicationController
   end
 
   def register_with_phone
-    user = Authentications::RegisterService.call(register_params)
+    user = Authentications::RegisterWithPhoneService.call(register_params)
 
     user = Otp::NewRequestService.call(user)
 
