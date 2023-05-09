@@ -34,7 +34,7 @@ class Invoice < ApplicationRecord
   end
 
   def set_expire_time
-    self.expire_time = Time.now + 1.day
+    self.expire_time = Time.now + 3.day
   end
 
   def set_invoice_number
